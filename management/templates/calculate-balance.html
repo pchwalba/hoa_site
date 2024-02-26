@@ -1,0 +1,8 @@
+{% extends 'overview.html' %}
+{% block content %}
+
+    <form action="" method="post">
+        {% csrf_token %}
+        <input type="submit" value="Oblicz">
+    </form>
+{% endblock %}

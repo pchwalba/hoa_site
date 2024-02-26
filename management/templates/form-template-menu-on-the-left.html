@@ -1,0 +1,13 @@
+{% extends 'sidepanel-menu.html' %}
+{% load static %}
+{% block side_content %}
+    <div class="create-form">
+        <form action="" method="post">
+            {% csrf_token %}
+            <ul>
+                {{ form.as_ul }}
+                <input type="submit" value="Prześlij" class="button-submit">
+            </ul>
+        </form>
+    </div>
+{% endblock %}

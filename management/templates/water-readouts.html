@@ -1,0 +1,47 @@
+{% extends 'sidepanel-menu.html' %}
+{% load simple_tags %}
+{% block side_content %}
+    <div>
+    <form method="get" class="filter-form">
+            Mieszkanie: {{ form.apartment }}
+            {{ form.year }}
+            <input type="submit" value="Filtruj" class="button-submit"></form>
+        </div>
+
+    <div class="table-content">
+        {% if object_list %}
+            <table class="summary-table">
+            <tr>
+            <th>Numer mieszkania</th>
+            <th>Data odczytu</th>
+            <th>Ciepła Woda</th>
+            <th>Zimna Woda</th>
+            <th>Dodaj Nowy odczyt</th>
+            <th>Edytuj odczyt</th>
+            </tr>
+            {% for object in object_list %}
+
+                <tr>
+                    <td>{{ object.apartment }}</td>
+                    <td>{{ object.readout_date }}</td>
+                    <td>{{ object.hot_water_readout }}</td>
+                    <td>{{ object.cold_water_readout }}</td>
+                    <td><a href="{% url 'water-readouts-create' object.apartment %}">Dodaj</a> </td>
+                    <td><a href="{% url 'water-readouts-edit' object.pk %}">Edytuj</a></td>
+                </tr>
+            {% endfor %}
+        {% endif %}
+                </table>
+    </div>
+<div class="navigation-buttons">
+        <a type="button" class="button-submit{% if form.apartment.value <= '1' or not form.apartment.value %}-disabled{% endif %}"
+           href="{% url 'admin-water-readouts' %}?apartment={% if form.apartment.value %}
+{{ form.apartment.value|add:"-1" }}&year={{ form.year.value }}
+        {% else %}2&year={% now "Y" %}{% endif %}" >Poprzednie mieszkanie</a>
+        <a type="button" class="button-submit{% if form.apartment.value == number_of_apartments|to_str %}-disabled{% endif %}"
+           href="{% url 'admin-water-readouts' %}?apartment=
+{% if form.apartment.value %}
+{{ form.apartment.value|add:1 }}&year={{ form.year.value }}
+{% else %}2&year={% now "Y" %}{% endif %}">Następne Mieszkanie</a>
+
+{% endblock %}

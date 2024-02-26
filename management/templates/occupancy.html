@@ -1,0 +1,38 @@
+{% extends 'sidepanel-menu.html' %}
+{% block side_content %}
+    <div>
+        <form method="get" class="filter-form">
+
+            Mieszkanie: {{ form.apartment }}
+            {{ form.year }}
+            <input type="submit" value="Filtruj" class="button-submit">
+            <a class="button-submit" href="{% url 'occupancy-create' %}">Dodaj</a>
+        </form>
+
+    </div>
+
+    <div class="table-content">
+        <table class="summary-table">
+            <tr>
+                <th>Numer Mieszkania</th>
+                <th>Od</th>
+                <th>Ilość mieszkańców</th>
+                <th>Dodaj nową ilość mieszkańców</th>
+                <th>Edytuj ilość mieszkańców</th>
+            </tr>
+            {% for object in object_list %}
+                <tr>
+                    <td>{{ object.apartment.number }}</td>
+                    <td>{{ object.start_date }}</td>
+                    <td>{{ object.occupants }}</td>
+                    <td><a href="{% url 'occupancy-create' object.apartment %}">Dodaj nową ilość mieszkańców</a></td>
+                    <td><a href="{% url 'occupancy-edit' object.pk %}">Edytuj ilość mieszkańców</a></td>
+                </tr>
+            {% endfor %}
+        </table>
+    </div>
+
+    <div>
+
+    </div>
+{% endblock %}

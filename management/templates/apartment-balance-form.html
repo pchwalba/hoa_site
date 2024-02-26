@@ -1,0 +1,16 @@
+{% extends 'sidepanel-menu.html' %}
+{% block side_content %}
+    <div class="create-form">
+        <form action="" method="post">
+            {% csrf_token %}
+            <ul>
+                <li>Mieszkanie: {{ form.apartment }}</li>
+                <li>Data utworzenia:{{ form.date }}</li>
+                <li>Typ: {{ form.type_of_transaction }}</li>
+                <li>Tytuł: {{ form.title }}</li>
+                <li>Kwota:{{ form.amount }}</li>
+                <input type="submit" value="Prześlij" class="button-submit">
+            </ul>
+        </form>
+    </div>
+{% endblock %}

@@ -1,0 +1,14 @@
+{% extends 'sidepanel-menu.html' %}
+{% load static %}
+{% block side_content %}
+    <div class="create-form">
+    <form action="" method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        <ul>
+            <li>Plik:{{ form.file }}</li>
+            {% if form.errors %}<li>{{ form.errors.file }}</li>{% endif %}
+        <input type="submit" value="Importuj" class="button-submit">
+        </ul>
+    </form>
+    </div>
+{% endblock %}

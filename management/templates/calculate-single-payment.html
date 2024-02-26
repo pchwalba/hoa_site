@@ -1,0 +1,27 @@
+{% extends 'sidepanel-menu.html' %}
+{% block side_content %}
+    <div class="create-form">
+    <form action="" method="post">
+        {% csrf_token %}
+        <ul>
+            <li>Mieszkanie: {{ form.apartment }}</li>
+            <li>Data utworzenia:{{ form.date }}</li>
+            <li>Tytuł: {{ form.title }}</li>
+            <li>Kwota:{{ form.amount }}</li>
+        <input type="submit" value="Prześlij" class="button-submit">
+        </ul>
+    </form>
+    <ul class="cost-list">
+        <li>Opłaty za: {{ fees.readout_date|date:"M" }}</li>
+        <li>Opłata eksploatacyjna: {{ fees.maintenance_cost|floatformat:2 }}zł</li>
+        <li>Fundusz remontowy:{{ fees.repair_fund_cost|floatformat:2 }}zł</li>
+        <li>Centralne Ogrzewanie: {{ fees.central_heating_cost|floatformat:2 }}zł</li>
+        <li>Zimna woda:{{ fees.cold_water_cost|floatformat:2 }}zł</li>
+        <li>Ciepła woda:{{ fees.hot_water_cost|floatformat:2 }}zł</li>
+        <li>Śmieci: {{ fees.garbage_cost|floatformat:2 }}zł</li>
+        <li>Parking: {{ fees.parking_fee }}</li>
+        <li>Dopłata: {{ fees.central_heating_surcharge }}</li>
+        <li>W sumie: {{ fees.total|floatformat:2 }}zł</li>
+    </ul>
+    </div>
+{% endblock %}

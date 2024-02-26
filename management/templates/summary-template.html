@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+        <div class="table-content">
+        Mieszkanie numer: {{ apartment }}
+        <table class="summary-table">
+            <tr>
+                <th>Data</th>
+                <th>Opłata eksploatacyjna</th>
+                <th>Fundusz remontowy</th>
+                <th>CO za m2</th>
+                <th>CO</th>
+                <th>Stan ZW</th>
+                <th>Zużycie ZW</th>
+                <th>ZW za m3</th>
+                <th>ZW</th>
+                <th>Stan CW</th>
+                <th>Zużycie CW</th>
+                <th>CW za m3</th>
+                <th>CW</th>
+                <th>Osoby</th>
+                <th>Śmieci za osobę</th>
+                <th>Śmieci</th>
+                <th>Parking SM</th>
+                <th>Dopłata CO</th>
+                <th>W sumie</th>
+            </tr>
+             {% for object in data %}
+                 <tr>
+                    <td>{{ object.readout_date|date:"m-y" }}</td>
+                    <td>{{ object.maintenance_cost|floatformat:2 }}zł</td>
+                    <td>{{ object.repair_fund_cost|floatformat:2 }}zł</td>
+                    <td>{{ object.central_heating_fee }}zł</td>
+                    <td>{{ object.central_heating_cost|floatformat:2 }}zł</td>
+                    <td>{{ object.cold_water }}</td>
+                    <td>{{ object.cold_used }}</td>
+                    <td>{{ object.cold_water_fee }}zł</td>
+                    <td>{{ object.cold_water_cost|floatformat:2 }}zł</td>
+                    <td>{{ object.hot_water }}</td>
+                    <td>{{ object.hot_used }}</td>
+                    <td>{{ object.hot_water_fee }}zł</td>
+                    <td>{{ object.hot_water_cost|floatformat:2 }}zł</td>
+                    <td>{{ object.tenants }}</td>
+                    <td>{{ object.garbage_fee }}zł</td>
+                    <td>{{ object.garbage_cost|floatformat:2 }}zł</td>
+                    <td>{{ object.parking_fee }}</td>
+                    <td>{{ object.central_heating_surcharge }}</td>
+                    <td>{{ object.total|floatformat:2 }}zł</td>
+                 </tr>
+             {% endfor %}
+            <tr>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <th colspan="2">Pozostało do zapłaty</th>
+                <td>{{ balance.balance }}zł</td>
+            </tr>
+        </table>
+</div>
+</body>
+</html>
+<style>
+    @font-face {
+        font-family: "DM Sans";
+        src: url("management/static/DMSans.ttf");
+    }
+    @page {
+        size: letter landscape;
+        margin: 2cm;
+    }
+    .summary-table {
+        table-layout: auto;
+        width: 100%;
+
+    }
+    .summary-table th {
+
+        width: 100%;
+  border: 1px solid #EFF0F6;
+  font-family: "DM Sans", 'serif';
+  font-weight: 700;
+}
+
+.summary-table td {
+    margin-left: 3px;
+  border: 1px solid #EFF0F6;
+  font-family: "DM Sans", 'serif';
+  align-items: center;
+  color: #1D2433;
+}
+
+</style>

@@ -1,0 +1,6 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+    <p><a href="{% url 'fees' %}">Aktualny wykaz opłat</a></p>
+    <p><a href="{% url 'water-readouts-create' %}">Dodaj stan liczników</a></p>
+{% endblock %}

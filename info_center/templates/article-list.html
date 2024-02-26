@@ -1,0 +1,34 @@
+{% extends 'base.html' %}
+{% block content %}
+    <div class="main-page-content">
+    {% if user.is_superuser %}
+        <span class="article-button"><a href="{% url 'article-create' %}">Utwórz nowy artykuł</a></span>
+    {% endif %}
+        {% for object in object_list %}
+            <h2>{{ object.title }}</h2>
+            <p class="article-pub-date">{{ object.pub_date }}</p>
+            <p class="article-content">{{ object.content }}</p>
+            {% if user.is_superuser %}
+                <span class="article-button"><a href="{% url 'article-update' object.id %}">Edytuj</a></span>
+            {% endif %}
+            <hr>
+        {% endfor %}
+    </div>
+    {% if page_obj.paginator.num_pages > 1 %}
+        <div class="article-pagination">
+    <span class="step-links">
+        {% if page_obj.has_previous %}
+            <a href="?page=1">&laquo; pierwsza</a>
+            <a href="?page={{ page_obj.previous_page_number }}">poprzednia</a>
+        {% endif %}
+        <span class="current">
+            strona {{ page_obj.number }} z {{ page_obj.paginator.num_pages }}.
+        </span>
+        {% if page_obj.has_next %}
+            <a href="?page={{ page_obj.next_page_number }}">następna</a>
+            <a href="?page={{ page_obj.paginator.num_pages }}">ostatnia &raquo;</a>
+        {% endif %}
+    </span>
+        </div>
+    {% endif %}
+{% endblock %}

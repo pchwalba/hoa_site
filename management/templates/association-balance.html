@@ -1,0 +1,52 @@
+{% extends 'sidepanel-menu.html' %}
+{% block side_content %}
+    <form method="get" class="filter-form">
+        <ul>
+            <li>Transakcje od: {{ form.start_date }} do: {{ form.end_date }}</li>
+            <li>Typ operacji: {{ form.type_of_transaction }}</li>
+            <li><input type="submit" value="Filtruj" class="button-submit">
+                <a type="button" class="button-submit" href="{% url 'association-balance-create' %}">Dodaj</a>
+                <a type="button" class="button-submit" href="{% url 'association-balance-create' %}?forms=5">Dodaj wiele</a>
+            </li>
+
+        </ul>
+    </form>
+    <div class="table-content">
+        <table class="summary-table">
+            <tr>
+                <th>Data Transakcji</th>
+                <th>Typ</th>
+                <th>Tytuł</th>
+                <th>Kwota operacji</th>
+                <th>Saldo po operacji</th>
+            </tr>
+            {% for object in object_list %}
+                <tr>
+                    <td>{{ object.date }}</td>
+                    <td>{{ object.type_of_transaction }}</td>
+                    <td>{{ object.title }}</td>
+                    <td>{{ object.amount }}</td>
+                    <td>{{ object.balance }}</td>
+                </tr>
+            {% endfor %}
+        </table>
+    </div>
+
+    <div class="pagination">
+    <span class="step-links">
+        {% if page_obj.has_previous %}
+            <a href="?page=1">&laquo; pierwsza</a>
+            <a href="?page={{ page_obj.previous_page_number }}">poprzednia</a>
+        {% endif %}
+
+        <span class="current">
+            strona {{ page_obj.number }} z {{ page_obj.paginator.num_pages }}.
+        </span>
+
+        {% if page_obj.has_next %}
+            <a href="?page={{ page_obj.next_page_number }}">następna</a>
+            <a href="?page={{ page_obj.paginator.num_pages }}">ostatnia &raquo;</a>
+        {% endif %}
+    </span>
+    </div>
+{% endblock %}

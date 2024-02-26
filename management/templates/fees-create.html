@@ -1,0 +1,20 @@
+{% extends 'sidepanel-menu.html' %}
+{% load static %}
+{% block side_content %}
+    <div class="create-form">
+        <form action="" method="post">
+            {% csrf_token %}
+            <ul>
+                <li>Obowiązuje od:{{ form.period }}</li>
+                <li>Opłata eksploatacyjna: {{ form.maintenance_fee }}</li>
+                <li>Fundusz remontowy: {{ form.repair_fund }}</li>
+                <li>Centralne ogrzewanie: {{ form.central_heating }}</li>
+                <li>Zimna woda: {{ form.cold_water }}</li>
+                <li>Ciepła woda: {{ form.hot_water }}</li>
+                <li>Śmieci: {{ form.garbage }}</li>
+                <li>Opłata za parking: {{ form.parking_fee }}</li>
+                <input type="submit" value="Prześlij">
+            </ul>
+        </form>
+    </div>
+{% endblock %}

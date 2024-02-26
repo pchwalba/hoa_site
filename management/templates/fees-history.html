@@ -1,0 +1,30 @@
+{% extends 'sidepanel-menu.html' %}
+{% block side_content %}
+
+        <table class="summary-table">
+            <tr>
+                <th>Obowiązuje od:</th>
+                <th>Opłata eksploatacyjna</th>
+                <th>Fundusz remontowy</th>
+                <th>CO</th>
+                <th>Zimna woda</th>
+                <th>Ciepła woda</th>
+                <th>Śmieci</th>
+                <th>Opłata parkingowa</th>
+            </tr>
+            {% for object in object_list %}
+                <tr>
+                    <td>{{ object.period }}</td>
+                    <td>{{ object.maintenance_fee }}</td>
+                    <td>{{ object.repair_fund }}</td>
+                    <td>{{ object.central_heating }}</td>
+                    <td>{{ object.cold_water }}</td>
+                    <td>{{ object.hot_water }}</td>
+                    <td>{{ object.garbage }}</td>
+                    <td>{{ object.parking_fee }}</td>
+                </tr>
+            {% endfor %}
+        </table>
+    </div>
+
+{% endblock %}

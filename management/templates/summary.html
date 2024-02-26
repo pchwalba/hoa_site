@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <input type="submit" value="Prześlij"></form>
+
+    <ul class="summary-list">
+        <li>Ciepła Woda: {{ object.hot_water_cost }}</li>
+        <li>Zimna Woda: {{  object.cold_water_cost }}</li>
+        <li>Opłata eksploatacyjna: {{ object.maintenance_cost }}</li>
+        <li>Fundusz remontowy: {{ object.repair_fund_cost }}</li>
+        <li>Centralne ogrzewanie: {{ object.central_heating_cost }}</li>
+        <li>Śmieci: {{ object.garbage_cost }}</li>
+        <li>W sumie: {{ object.total }}</li>
+    </ul>
+{% endblock %}

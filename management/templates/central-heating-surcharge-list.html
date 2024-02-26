@@ -1,0 +1,39 @@
+{% extends 'sidepanel-menu.html' %}
+{% block side_content %}
+    <form method="get" class="filter-form">
+
+        Mieszkanie: {{ form.apartment }}
+        {{ form.year }}
+        <input type="submit" value="Filtruj" class="button-submit">
+    <a class="button-submit" href="{% url 'central-heating-surcharge-create' %}">Dodaj</a>
+    </form>
+
+    <div class="table-content">
+    <table class="summary-table">
+        <tr>
+            <th>Numer Mieszkania</th>
+            <th>Od</th>
+            <th>Do</th>
+            <th>Miesięczna dopłata</th>
+            <th>Łączna dopłata</th>
+            <th>Utwórz nową dopłatę</th>
+            <th>Edytuj dopłatę</th>
+        </tr>
+    {% for object in object_list %}
+            <tr>
+                <td>{{ object.apartment.number }}</td>
+                <td>{{ object.start_date }}</td>
+                <td>{{ object.end_date }}</td>
+                <td>{{ object.amount_per_month }}</td>
+                <td>{{ object.amount }}</td>
+                <td><a href="{% url 'central-heating-surcharge-create' object.apartment %}">Utwórz dopłatę</a></td>
+                <td><a href="{% url 'central-heating-surcharge-edit' object.pk %}">Edytuj</a></td>
+            </tr>
+    {% endfor %}
+    </table>
+    </div>
+
+<div>
+
+</div>
+{% endblock %}

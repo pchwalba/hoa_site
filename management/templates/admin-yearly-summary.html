@@ -1,0 +1,96 @@
+{% extends 'overview.html' %}
+{% block content %}
+    {% load simple_tags %}
+    <div>
+        <form method="get" class="filter-form">
+            Mieszkanie: {{ form.apartment }}
+            rok:{{ form.year }}
+            od:{{ form.start_date }}
+            do:{{ form.end_date }}
+            <input type="submit" value="Filtruj" class="button-submit"></form>
+    </div>
+    <div class="table-content">
+        <table class="summary-table">
+            <tr>
+                <th>Data</th>
+                <th>Opłata eksploatacyjna</th>
+                <th>Fundusz remontowy</th>
+                <th>CO za m2</th>
+                <th>CO</th>
+                <th>Stan ZW</th>
+                <th>Zużycie ZW</th>
+                <th>ZW za m3</th>
+                <th>ZW</th>
+                <th>Stan CW</th>
+                <th>Zużycie CW</th>
+                <th>CW za m3</th>
+                <th>CW</th>
+                <th>Osoby</th>
+                <th>Śmieci za osobę</th>
+                <th>Śmieci</th>
+                <th>Parking SM</th>
+                <th>Dopłata CO</th>
+                <th>W sumie</th>
+            </tr>
+            {% for object in object_list %}
+                <tr>
+                    <td>{{ object.readout_date|date:"m" }}</td>
+                    <td>{{ object.maintenance_cost|floatformat:2 }}zł</td>
+                    <td>{{ object.repair_fund_cost|floatformat:2 }}zł</td>
+                    <td>{{ object.central_heating_fee }}zł</td>
+                    <td>{{ object.central_heating_cost|floatformat:2 }}zł</td>
+                    <td>{{ object.cold_water }}</td>
+                    <td>{{ object.cold_used }}</td>
+                    <td>{{ object.cold_water_fee }}zł</td>
+                    <td>{{ object.cold_water_cost|floatformat:2 }}zł</td>
+                    <td>{{ object.hot_water }}</td>
+                    <td>{{ object.hot_used }}</td>
+                    <td>{{ object.hot_water_fee }}zł</td>
+                    <td>{{ object.hot_water_cost|floatformat:2 }}zł</td>
+                    <td>{{ object.tenants }}</td>
+                    <td>{{ object.garbage_fee }}zł</td>
+                    <td>{{ object.garbage_cost|floatformat:2 }}zł</td>
+                    <td>{{ object.parking_fee }}</td>
+                    <td>{{ object.central_heating_surcharge }}</td>
+                    <td>{{ object.total|floatformat:2 }}zł</td>
+                </tr>
+            {% endfor %}
+            <tr>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <th colspan="2">Pozostało do zapłaty</th>
+                <td>{{ balance.balance }}zł</td>
+            </tr>
+        </table>
+    </div>
+    <div class="navigation-buttons">
+        <a type="button"
+           class="button-submit{% if form.apartment.value == '1' or not form.apartment.value %}-disabled{% endif %}"
+           href="{% url 'admin-yearly-summary' %}?apartment={% if form.apartment.value %}
+{{ form.apartment.value|add:"-1" }}&year={{ form.year.value }}
+        {% else %}2&year={% now "Y" %}{% endif %}">Poprzednie mieszkanie</a>
+        <a type="button"
+           class="button-submit{% if form.apartment.value == number_of_apartments|to_str %}-disabled{% endif %}"
+           href="{% url 'admin-yearly-summary' %}?apartment=
+{% if form.apartment.value %}
+{{ form.apartment.value|add:1 }}&year={{ form.year.value }}
+{% else %}2&year={% now "Y" %}{% endif %}">Następne Mieszkanie</a>
+        <a type="button" class="button-submit"
+           href="{% url 'generate-pdf' %}?{{ request.get_full_path|get_params_from_path }}">Drukuj</a>
+
+    </div>
+{% endblock %}

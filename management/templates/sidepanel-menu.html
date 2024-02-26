@@ -1,0 +1,24 @@
+{% extends 'overview.html' %}
+
+{% block content %}
+<div class="sidebar-wrapper">
+    {% with request.resolver_match.url_name as url_name %}
+    <ul class="sidebar-list">
+        <li><a {% if url_name in 'admin-summary' %}class="active"{% endif %} href="{% url 'admin-summary' %}">Mieszkania</a></li>
+        <li><a {% if url_name in 'apartment-balance' %}class="active"{% endif %} href="{% url 'apartment-balance' %}">Historia rachunków</a></li>
+        <li><a {% if url_name in 'association-balance' %}class="active"{% endif %} href="{% url 'association-balance' %}">Rachunek wspólnoty</a></li>
+        <li><a {% if url_name in 'fees-create' %}class="active"{% endif %} href="{% url 'fees' %}">Opłaty</a></li>
+        <li><a {% if url_name in 'parking-card-create parking-card-edit' %}class="active"{% endif %} href="{% url 'parking-card' %}">Karty parkingowe</a></li>
+        <li><a {% if url_name in 'big-family-card-create big-family-card-edit' %}class="active"{% endif %} href="{% url 'big-family-card' %}">Karty dużej rodziny</a></li>
+        <li><a {% if url_name in 'occupancy-create occupancy-edit' %}class="active"{% endif %} href="{%  url 'occupancy' %}">Ilość mieszkańców</a></li>
+        <li><a {% if url_name in 'admin-water-readouts water-readouts-create water-readouts-edit' %}class="active"{% endif %} href="{% url 'admin-water-readouts' %}">Liczniki wody</a></li>
+        <li><a {% if url_name in 'admin-water-readouts-import' %}class="active"{% endif %} href="{% url 'admin-water-readouts-import' %}">Importuj liczniki wody</a></li>
+        <li><a {% if url_name in 'central-heating-surcharge-create' %}class="active"{% endif %} href="{%  url 'central-heating-surcharge' %}">Dopłata do centralnego ogrzewania</a></li>
+    </ul>
+    {% endwith %}
+    <div class="table-with-form">
+        {% block side_content %}
+        {% endblock %}
+    </div>
+</div>
+{% endblock %}

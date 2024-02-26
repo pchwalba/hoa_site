@@ -1,0 +1,21 @@
+{% extends 'sidepanel-menu.html' %}
+{% block side_content %}
+    <div class="fees-table">
+            <ul>
+                    <li>Okres od: {{ object.period }}</li>
+                    <li>Opłata eksploatacyjna: {{ object.maintenance_fee }}/m2</li>
+                    <li>Fundusz remontowy: {{ object.repair_fund }}/m2</li>
+                    <li>Centralne ogrzewanie: {{ object.central_heating }}/m2</li>
+                    <li>Zimna woda: {{ object.cold_water }}/m3</li>
+                    <li>Ciepła woda: {{ object.hot_water }}/m3</li>
+                    <li>Śmieci: {{ object.garbage }}/osoba</li>
+                    {% if user.is_staff or user.is_superuser %}
+                        <li><a type="button" class="button-secondary" href="{% url 'fees-create' %}">Dodaj</a>
+                        <a type="button" class="button-secondary" href="{% url 'fees-history' %}">Historia</a></li>
+                    {% endif %}
+                </ul>
+    </div>
+
+
+{% endblock %}
+

@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="pl">
+{% load static %}
+<head>
+    <meta charset="UTF-8"/>
+    <title>Wspólnota Mieszkaniowa Sikorskiego 65</title>
+    <link
+            href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css"
+            rel="stylesheet"
+            integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9"
+            crossorigin="anonymous"
+    />
+    <link rel="stylesheet" href="{% static 'main.css' %}"/>
+</head>
+<body>
+<div class="wrapper">
+    <header class="header">
+        <a class="header-brand" href="{% url 'base' %}">Wspólnota Mieszkaniowa</a>
+        </span>
+        <ul class="header-menu">
+            <li><a href="{% url 'base' %}">Aktualności</a></li>
+            <li><a href="{% url 'downloads' %}">Do Pobrania</a></li>
+            <li><a href="{% url 'overview' %}">Strefa Mieszkańca</a></li>
+        </ul>
+        <div class="header-login-buttons">
+            {% if user.is_authenticated %}
+                <a href="{% url 'logout' %}" type="button" class="button-secondary">Wyloguj</a>
+            {% else %}
+                <a href="{% url 'login' %}" type="button" class="button-secondary">Zaloguj</a>
+                <a href=# type="button" class="button-primary">Zarejestruj</a>
+            {% endif %}
+        </div>
+    </header>
+    <main>
+        {% if messages %}
+            {% for message in messages %}
+                <div class="alert alert-{{ message.tags }}">{{ message }}
+                </div>
+            {% endfor %}
+        {% endif %}
+
+        {% block management_menu %}
+        {% endblock %}
+
+        {% block content %}
+        {% endblock %}
+    </main>
+    <footer>copyright</footer>
+</div>
+</body>
+</html>
+

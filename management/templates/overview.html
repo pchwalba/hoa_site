@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+
+{% block management_menu %}
+    {% with request.resolver_match.url_name as url_name %}
+    <ul class="overview-list">
+        {% if user.is_superuser %}
+        <li><a {% if url_name in 'fees-create' %}class="active"{% endif %} href="{% url 'admin-summary' %}">Zarządzanie</a></li>
+
+            <li><a {% if url_name in 'admin-yearly-summary' %}class="active"{% endif %} href="{% url 'admin-yearly-summary' %}?apartment=1&year=2023&start_date=&end_date=">Roczne podsumowanie</a></li>
+
+        {% else %}
+        <li><a {% if url_name in 'summary' %}class="active"{% endif %} href="{% url 'summary' %}">Podsumowanie</a></li>
+
+        {% endif %}
+        {% if user.is_superuser %}
+            <li><a {% if url_name in 'calculate-balance' %}class="active"{% endif %} href="{% url 'calculate-balance' %}" type="button">Oblicz bilans wpłat lokatorów</a></li>
+
+
+        {% endif %}
+    </ul>
+    {% endwith %}
+{% endblock %}

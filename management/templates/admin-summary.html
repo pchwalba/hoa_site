@@ -1,0 +1,31 @@
+{% extends 'sidepanel-menu.html' %}
+{% block side_content %}
+    <form method="post" class="filter-form">
+        {% csrf_token %}
+        Tylko nieopłacone: {{ form.only_not_paid }}
+        <input type="submit" value="Filtruj" class="button-submit"></form>
+    <div class="table-content">
+        <table class="summary-table">
+            <tr>
+                <th>Numer Mieszkania</th>
+                <th>Bilans</th>
+                <th>Dodaj Płatność</th>
+                <th>Oblicz i dodaj poprzedni miesiąc</th>
+            </tr>
+            {% for object in object_list %}
+                <tr>
+                    <td><a class="table-link"
+                           href="{% url 'apartment-balance' %}?apartment={{ object.apartment }}">{{ object.apartment }}</a>
+                    <td>{% if object.balance > 0 %}<span style="color : red">{{ object.balance }}zł</span>
+                    {% else %}<span style="color : blue">{{ object.balance }}</span>
+                    {% endif %}
+                    <td><a class="table-link" href="{% url 'add-payment' object.apartment %}">Dodaj Płatność</a></td>
+                    <td><a class="table-link" href="{% url 'calculate-single-payment' object.apartment %}">Oblicz i
+                        dodaj poprzedni miesiąc</a></td>
+
+                </tr>
+            {% endfor %}
+        </table>
+    </div>
+
+{% endblock %}

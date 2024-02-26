@@ -1,0 +1,32 @@
+{% extends 'sidepanel-menu.html' %}
+{% block side_content %}
+
+    <form method="get" class="filter-form">
+        Mieszkanie: {{ form.apartment }}
+        {{ form.year }}
+        <input type="submit" value="Filtruj" class="button-submit">
+        <a type="button" class="button-submit" href="{% url 'big-family-card-create' %}">Dodaj nową kartę</a></form>
+
+    <div class="table-content">
+
+        <table class="summary-table">
+            <tr>
+                <th>Numer Mieszkania</th>
+                <th>Od</th>
+                <th>Aktywna Karta</th>
+                <th>Utwórz nową kartę</th>
+                <th>Edytuj kartę</th>
+            </tr>
+            {% for object in object_list %}
+                <tr>
+                    <td>{{ object.apartment.number }}</td>
+                    <td>{{ object.start_date }}</td>
+                    <td>{{ object.active }}</td>
+                    <td><a href="{% url 'big-family-card-create' object.apartment %}">Utwórz kartę</a></td>
+                    <td><a href="{% url 'big-family-card-edit' object.pk %}">Edytuj kartę</a></td>
+                </tr>
+            {% endfor %}
+        </table>
+    </div>
+
+{% endblock %}
